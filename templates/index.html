@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Contact Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="page-wrap">
+      <section class="form-card">
+        <div class="form-header">
+          <p class="badge">Business Details</p>
+          <h1>Client Information Form</h1>
+          <p>
+            Enter your information below. On submission, data is securely stored in
+            a local Excel file on this machine.
+          </p>
+        </div>
+
+        {% if submitted %}
+        <div class="message success">Form submitted successfully. Entry was saved to Excel.</div>
+        {% endif %}
+
+        {% if error %}
+        <div class="message error">{{ error }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('submit') }}" method="post" class="details-form">
+          <div class="grid">
+            <label>
+              <span>First Name</span>
+              <input
+                type="text"
+                name="first_name"
+                placeholder="John"
+                required
+                value="{{ first_name if first_name else '' }}"
+              />
+            </label>
+            <label>
+              <span>Last Name</span>
+              <input
+                type="text"
+                name="last_name"
+                placeholder="Doe"
+                required
+                value="{{ last_name if last_name else '' }}"
+              />
+            </label>
+          </div>
+
+          <label>
+            <span>Email Address</span>
+            <input
+              type="email"
+              name="email"
+              placeholder="john.doe@company.com"
+              required
+              value="{{ email if email else '' }}"
+            />
+          </label>
+
+          <label>
+            <span>Company</span>
+            <input
+              type="text"
+              name="company"
+              placeholder="Company Name"
+              required
+              value="{{ company if company else '' }}"
+            />
+          </label>
+
+          <button type="submit">Save to Excel</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
